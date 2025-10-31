@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #0d0d1a;
+  color: #fff;
+}
+
+/* header */
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, #1e1e2f, #3b3b98);
+  color: #fff;
+  text-align: center;
+  padding: 1.3rem 1rem;
+  border-radius: 0 0 0.8rem 0.8rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.5px;
+  transform: translateY(-6px);
+  animation: headerDrop 450ms ease-out forwards;
+  overflow: hidden;
+}
+
+.header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  font-size: 0.95rem;
+  color: rgba(235, 235, 255, 0.85);
+  margin: 0;
+}
+
+/* main */
+main {
+  height: calc(100% - 104px);
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+/* panels */
+main .left,
+main .right {
+  height: 100%;
+  flex-basis: 50%;
+  border-radius: 0.8rem;
+}
+
+/* left (editor) */
+main .left {
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem;
+  border-radius: 0.8rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+/* editor area */
+.left .code,
+.code pre,
+.code pre code {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  border-radius: 0.7rem;
+  background-color: #121212;
+  color: #f8f8f2;
+  overflow: auto;
+  padding: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+
+
+/* review button */
+main .left .button {
+  position: absolute;
+  bottom: 1.1rem;
+  right: 1.1rem;
+  background: linear-gradient(135deg, #5b21b6, #7c3aed);
+  color: white;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  border-radius: 12px;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 6px 18px rgba(92, 33, 182, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  will-change: transform;
+}
+
+/* subtle hover and active effect */
+main .left .button:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 14px 30px rgba(92, 33, 182, 0.28);
+}
+
+main .left .button:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* micro animated pulse on idle (very subtle) */
+@keyframes pulse {
+  0% { box-shadow: 0 6px 18px rgba(92,33,182,0.18); }
+  50% { box-shadow: 0 10px 26px rgba(92,33,182,0.20); }
+  100% { box-shadow: 0 6px 18px rgba(92,33,182,0.18); }
+}
+
+/* apply small pulse when hovering the left area */
+main .left:hover .button {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+/* right (review) */
+main .right {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding: 1.2rem 1.6rem;
+  font-size: 1.05rem;
+  border-radius: 0.8rem;
+  overflow-y: auto;
+  color: #e8eef8;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* review content formatting */
+.review-box {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 0.98rem;
+  color: #e6eefc;
+}
+
+/* subtle content entrance */
+@keyframes contentFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.review-box { animation: contentFade 420ms ease both; }
+
+/* custom scrollbar */
+main .right::-webkit-scrollbar,
+.left .code::-webkit-scrollbar {
+  width: 10px;
+}
+
+main .right::-webkit-scrollbar-thumb,
+.left .code::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+main .right::-webkit-scrollbar-thumb:hover,
+.left .code::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+/* header drop animation */
+@keyframes headerDrop {
+  from { transform: translateY(-18px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* responsive */
+@media (max-width: 920px) {
+  main {
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 2rem;
+  }
+
+  main .left,
+  main .right {
+    height: 48vh;
+    flex-basis: auto;
+  }
+
+  main .left .button {
+    right: 1rem;
+    bottom: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  .header h1 {
+    font-size: 1.4rem;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+}
