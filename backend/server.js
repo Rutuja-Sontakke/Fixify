@@ -9,5 +9,11 @@ app.use(express.json());
 // Use route prefix '/ai'
 app.use('/ai', aiRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully");
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+     console.log(`Server running on port ${PORT}`) 
+    });
