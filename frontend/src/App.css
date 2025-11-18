@@ -137,7 +137,9 @@ main .left:hover .button {
 
 /* right (review) */
 main .right {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: linear-gradient(180deg,
+   rgba(255,255,255,0.02), 
+   rgba(255,255,255,0.01));
   padding: 1.2rem 1.6rem;
   font-size: 1.05rem;
   border-radius: 0.8rem;

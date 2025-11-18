@@ -1,25 +1,17 @@
 const aiService = require("../services/ai.service");
 
-// GET version 
-module.exports.getResponse = async (req, res) => {
-    const prompt = req.query.prompt;
-
-    if (!prompt) {
-        return res.status(400).send("Prompt is required");
-    }
-
-    const response = await aiService(prompt);
-    res.send(response);
-};
-
-// POST version
 module.exports.getReview = async (req, res) => {
+  try {
     const code = req.body.code;
 
     if (!code) {
-        return res.status(400).send("Code is required");
+      return res.status(400).json({ error: "Code is required" });
     }
 
     const response = await aiService(code);
-    res.send({ result: response });
+    return res.json({ result: response });
+  } catch (error) {
+    console.error("Error in getReview:", error);
+    return res.status(500).json({ error: "Server error while processing code review." });
+  }
 };

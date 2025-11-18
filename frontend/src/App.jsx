@@ -4,7 +4,6 @@ import Editor from "react-simple-code-editor";
 import prism from "prismjs";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight"
-// import "hightlight.js/styles/github-dark.css"
 import axios from "axios";
 import './App.css';
 
@@ -19,22 +18,24 @@ function App() {
     prism.highlightAll();
   });
 
-  // Function to send code to backend and get AI review
   async function reviewCode() {
-    try {
-      const response = await axios.post('http://localhost:3000/ai/get-review', { code });
-      setReview(response.data.result); // Access 'result' property
-    } catch (error) {
-      console.error("Error fetching review:", error);
-      setReview("Error getting review from server.");
-    }
+  const API_URL = "https://fixify-backend-xott.onrender.com"; 
+
+  try {
+    const response = await axios.post(`${API_URL}/ai/get-review`, { code });
+    setReview(response.data.result);
+  } catch (error) {
+    console.error("Error fetching review:", error);
+    setReview("Error getting review from server.");
   }
+}
+
 
   return (
     <>
-    <header className="header">
+      <header className="header">
         <h1>FixiFy - AI Code Reviewer</h1>
-        <p>Instantly review, improve, and debug your code with AI</p>
+        <p>Instant review, improve, and debug your code with AI</p>
       </header>
       <main>
         <div className="left">
@@ -60,11 +61,9 @@ function App() {
         <div className="right">
           {review ? (
             <div className="review-box">
-              <Markdown
-              
-                  rehypePlugins={[ rehypeHighlight ]}
-
-              >{review}</Markdown>
+              <Markdown rehypePlugins={[rehypeHighlight]}>
+                {review}
+              </Markdown>
             </div>
           ) : (
             <p>Click "Review" to get feedback...</p>
